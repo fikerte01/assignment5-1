@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import com.meritamerica.exceptions.*;
 
 public class MeritBank {
 	private static long accIndex = 0;
@@ -36,6 +37,20 @@ public class MeritBank {
 		MeritBank.CDOfferings = offerings;
 	}
 	
+	public static AccountHolder getAccountHolder(long id) {
+		for (AccountHolder account : MeritBank.accountHolders) {
+			if (account == null) {
+				return null;
+			}
+			if (account.getId() == id) {
+				return account;
+			}
+		}
+		
+		return null;
+		
+		
+	}
 	public static BankAccount findAccount(long ID) {
 		if (accountHolders != null) {
 			for (int i = 0; i < accountHolders.length; i++) {

@@ -37,37 +37,37 @@ public class MeritAmericaBankApp {
 //				}
 //			}
 			
-			AccountHolder accountHolder = new AccountHolder(
-	            	"Sadiq",
-	            	"",
-	            	"Manji",
-	            	"123456789");
-			
-			
-			/*
-			 * Transaction process check
-			 */
-			accountHolder.addSavingsAccount(300);
-	    	
-			accountHolder.addCheckingAccount(500);
-			System.out.println("hi");
-			DepositTransaction dt1 = new DepositTransaction(accountHolder.getSavingsAccounts()[0], 50, new Date());
-			DepositTransaction dt2 = new DepositTransaction(accountHolder.getSavingsAccounts()[0], 500, new Date());
-			WithdrawTransaction wd1 = new WithdrawTransaction(accountHolder.getCheckingAccounts()[0], 150, new Date());
-			BankAccount checking = accountHolder.getCheckingAccounts()[0];
-			
-			MeritBank.processTransaction(dt1);
-			MeritBank.processTransaction(dt2);
-			MeritBank.processTransaction(wd1);
-			
-			SavingsAccount sa1 = accountHolder.getSavingsAccounts()[0];
-			ArrayList<Transaction> trans = sa1.getTransactions();
-			Transaction tran = trans.get(1);
-			Transaction tran2 = trans.get(2);
-			System.out.println(tran.toString());
-			System.out.println(tran2);
-			
-			System.out.println(wd1.getTargetAccount().getBalance());
+//			AccountHolder accountHolder = new AccountHolder(
+//	            	"Sadiq",
+//	            	"",
+//	            	"Manji",
+//	            	"123456789");
+//			
+//			
+//			/*
+//			 * Transaction process check
+//			 */
+//			accountHolder.addSavingsAccount(300);
+//	    	
+//			accountHolder.addCheckingAccount(500);
+//			System.out.println("hi");
+//			DepositTransaction dt1 = new DepositTransaction(accountHolder.getSavingsAccounts()[0], 50, new Date());
+//			DepositTransaction dt2 = new DepositTransaction(accountHolder.getSavingsAccounts()[0], 500, new Date());
+//			WithdrawTransaction wd1 = new WithdrawTransaction(accountHolder.getCheckingAccounts()[0], 150, new Date());
+//			BankAccount checking = accountHolder.getCheckingAccounts()[0];
+//			
+//			MeritBank.processTransaction(dt1);
+//			MeritBank.processTransaction(dt2);
+//			MeritBank.processTransaction(wd1);
+//			
+//			SavingsAccount sa1 = accountHolder.getSavingsAccounts()[0];
+//			ArrayList<Transaction> trans = sa1.getTransactions();
+//			Transaction tran = trans.get(1);
+//			Transaction tran2 = trans.get(2);
+//			System.out.println(tran.toString());
+//			System.out.println(tran2);
+//			
+//			System.out.println(wd1.getTargetAccount().getBalance());
 			
 			
 			/*
@@ -89,6 +89,10 @@ public class MeritAmericaBankApp {
 //			System.out.println(q.getAmount());
 //			System.out.println(q.getTargetAccount().getAccountNumber());
 			
+			AccountHolder acc = MeritBank.getAccountHolder(2);
+			if (acc == null) {
+				System.out.println("Account is null");
+			}
 	    	
 //	        
 //	        System.out.println(cdAccount.withdraw(500.0));

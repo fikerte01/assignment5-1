@@ -78,6 +78,10 @@ public class BankAccount {
 		return this.openDate;
 	}
 	
+	public void setBalance(double balance){
+		this.balance = balance;
+	}
+
 	public boolean withdraw(double amount) {
 		if (amount <= 0) {
 			System.out.println("The amount needs to be more than 0");

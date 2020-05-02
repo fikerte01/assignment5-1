@@ -3,13 +3,25 @@ package com.meritamerica.assignment4;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 // Declare a class that implements an interface 
 public class AccountHolder implements Comparable{ 
-	
+		private static long ID = 1;
+		
+		private long id;
 	    // Class member variables 
+		@NotNull(message="First name can not be Null")
+		@NotBlank(message="First name must not be empty")
 	 	private String firstName;
-	    private String middleName;
+		private String middleName;
+	    @NotNull(message="Last name can not be Null")
+	    @NotBlank(message="Last name must not be empty")
 	    private String lastName;
+	    @NotNull
+	    @Size(min=9, message="SNN can not be less than 9 characters")
 	    private String ssn;
 	    private CheckingAccount[] checkingAccounts;
 	    private SavingsAccount[] savingsAccounts;
@@ -33,6 +45,8 @@ public class AccountHolder implements Comparable{
 	    }
 	    
 	    public AccountHolder (){	
+	    	this.id = AccountHolder.ID;
+	    	AccountHolder.ID++;
 	    	// instantiate array of Checkings
 	        checkingAccounts = new CheckingAccount[10];
 	        savingsAccounts = new SavingsAccount[10];
@@ -86,6 +100,14 @@ public class AccountHolder implements Comparable{
 	    public void setSSN(String ssn) {
 	        this.ssn = ssn;
 	    }
+	    
+	    public long getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
 	    
 	    public CheckingAccount addCheckingAccount(double openingBalance) throws ExceedsCombinedBalanceLimitException {
 	    	CheckingAccount acc = new CheckingAccount(openingBalance);

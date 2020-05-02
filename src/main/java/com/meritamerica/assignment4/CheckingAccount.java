@@ -28,6 +28,12 @@ public class CheckingAccount extends BankAccount {
 		super(accNumb, balance, interestRate, openDate);
 	}
 	
+	public CheckingAccount() {
+		super(0, INTEREST_RATE);
+	}
+	
+	
+	
 	// 0.001 is the default interest rate
 	public CheckingAccount(double balance) {
 		super(balance, INTEREST_RATE);
