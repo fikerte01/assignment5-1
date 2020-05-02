@@ -75,4 +75,71 @@ public class MeritBankController {
 		
 		return account.getCheckingAccounts();
 	}
+	
+	@PostMapping(value="/AccountHolders/{id}/SavingsAccounts")
+	@ResponseStatus(HttpStatus.CREATED)
+	public SavingsAccount addSaving(@PathVariable("id") long id, @RequestBody SavingsAccount savings ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
+	NegativeAmountException
+	{
+//		AccountHolder account = MeritBank.getAccountHolder(id);
+//		
+//		if (account == null) {
+//			throw new NotFoundException("No account exists");
+//		}
+				
+		AccountHolder account = this.getAccountHolder(id);
+		
+		if (savings.getBalance() < 0) {
+			throw new NegativeAmountException();
+		}
+		
+		account.addSavingsAccount(savings);
+		
+		return savings;
+	}
+	
+	@GetMapping(value="/AccountHolders/{id}/SavingsAccounts")
+	public SavingsAccount[] getSavings(@PathVariable("id") long id) throws NotFoundException {
+		AccountHolder account = this.getAccountHolder(id);
+		
+		return account.getSavingsAccounts();
+	}
+	
+	
+
+//	@PostMapping(value="/AccountHolders/{id}/CDAccounts")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public CDAccount addCDAccount(@PathVariable("id") long id, @RequestBody CDAccount CDAccount ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
+//	NegativeAmountException, ExceedsFraudSuspicionLimitException
+//	{
+////		AccountHolder account = MeritBank.getAccountHolder(id);
+////		
+////		if (account == null) {
+////			throw new NotFoundException("No account exists");
+////		}
+//				
+//		AccountHolder account = this.getAccountHolder(id);
+//		
+//		if (CDAccount.getBalance() < 0) {
+//			throw new NegativeAmountException();
+//		}
+//		
+//		account.addCDAccount(CDAccount);
+//		
+//		return CDAccount;
+//	}
+	
+	@PostMapping("/CDOfferings")
+	public CDOffering createCDOffering(@RequestBody CDOffering offering) {
+		MeritBank.addCDOffering(offering);
+		return offering;
+	}
+	
+	@GetMapping("/CDOfferings")
+	public CDOffering[] getCDOfferings() throws NotFoundException {
+		CDOffering[] cdOfferings = MeritBank.getCDOfferings();
+	    return cdOfferings;
+
+	}
+	
 }

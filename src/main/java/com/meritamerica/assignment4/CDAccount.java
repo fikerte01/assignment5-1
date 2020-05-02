@@ -23,6 +23,11 @@ public class CDAccount extends BankAccount {
 		this.offering = new CDOffering(term, interestRate);
 	}	
 	
+	public CDAccount() {
+		super();
+		this.offering = new CDOffering();
+	}
+	
 	public static CDAccount readFromString(String accountData) throws ParseException {
 		String[] data = accountData.split(",");
 		
@@ -46,6 +51,19 @@ public class CDAccount extends BankAccount {
 	public int getTerm() {
 		return offering.getTerm();
 	}
+	
+	public void setTerm(int years) {
+		offering.setTerm(years);
+	}
+	
+	public void setInterestRate(double interestRate) {
+		offering.setInterestRate(interestRate);
+	}
+	
+	public double getInterestRate() {
+		return offering.getInterestRate();
+	}
+	
 	
 	@Override
 	public String writeToString() {

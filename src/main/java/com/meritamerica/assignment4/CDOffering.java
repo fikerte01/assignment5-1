@@ -19,12 +19,24 @@ public class CDOffering {
 		this.interestRate = interestRate;
 	}
 	
+	public CDOffering() {
+		
+	}
+	
 	public double getInterestRate() {
 		return interestRate;
 	}
 	
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
+	
 	public int getTerm() {
 		return term;
+	}
+	
+	public void setTerm(int years) {
+		this.term = years;
 	}
 	
 }

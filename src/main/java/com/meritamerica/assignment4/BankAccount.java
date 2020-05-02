@@ -20,6 +20,10 @@ public class BankAccount {
 	private Date openDate;
 	private ArrayList<Transaction> transactions;
 	
+	public BankAccount() {
+		
+	}
+	
 	BankAccount(double balance, double interestRate) {
 		this(MeritBank.getNextAccountNumber(), balance, interestRate, new Date());
 	}

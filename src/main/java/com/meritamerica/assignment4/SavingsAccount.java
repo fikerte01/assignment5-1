@@ -20,6 +20,10 @@ public class SavingsAccount extends BankAccount {
 		super(balance, INTEREST_RATE);
 	}
 	
+	public SavingsAccount() {
+		super(0, INTEREST_RATE);
+	}
+	
 	public static SavingsAccount readFromString(String accountData) throws ParseException {
 		String[] data = accountData.split(",");
 		

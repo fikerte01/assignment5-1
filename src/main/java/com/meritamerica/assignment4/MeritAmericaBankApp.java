@@ -89,10 +89,11 @@ public class MeritAmericaBankApp {
 //			System.out.println(q.getAmount());
 //			System.out.println(q.getTargetAccount().getAccountNumber());
 			
-			AccountHolder acc = MeritBank.getAccountHolder(2);
-			if (acc == null) {
-				System.out.println("Account is null");
-			}
+			CDAccount acc = new CDAccount();
+			acc.setBalance(1000);
+			acc.setInterestRate(2.5);
+			acc.setTerm(3);
+			System.out.println(acc.getTerm() + " " + acc.getBalance() + " " + acc.getInterestRate());
 	    	
 //	        
 //	        System.out.println(cdAccount.withdraw(500.0));

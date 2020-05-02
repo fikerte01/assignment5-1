@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Build-Jdk-Spec: 12
+Build-Jdk-Spec: 11
 Implementation-Title: Assignment5
 Implementation-Version: 1.0-SNAPSHOT
 Created-By: Maven Integration for Eclipse
