@@ -2,6 +2,9 @@ package com.meritamerica.assignment5.controller;
 
 import javax.validation.Valid;
 import com.meritamerica.assignment4.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,9 @@ import com.meritamerica.exceptions.*;
 
 @RestController
 public class MeritBankController {
+	
+	Logger logger = LoggerFactory.getLogger(MeritBankController.class);
+	
 	@RequestMapping("/")
 	@ResponseBody
 	public String home() {
@@ -41,6 +47,7 @@ public class MeritBankController {
 		AccountHolder account = MeritBank.getAccountHolder(id);
 
 		if (account == null) {
+			logger.error("No account exists");
 			throw new NotFoundException("No account exists");
 		}
 	
@@ -51,16 +58,11 @@ public class MeritBankController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public CheckingAccount addChecking(@PathVariable("id") long id, @RequestBody CheckingAccount checking ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
 	NegativeAmountException
-	{
-//		AccountHolder account = MeritBank.getAccountHolder(id);
-//		
-//		if (account == null) {
-//			throw new NotFoundException("No account exists");
-//		}
-				
+	{				
 		AccountHolder account = this.getAccountHolder(id);
 		
 		if (checking.getBalance() < 0) {
+			logger.warn("Negative amount exception");
 			throw new NegativeAmountException();
 		}
 		
@@ -81,15 +83,11 @@ public class MeritBankController {
 	public SavingsAccount addSaving(@PathVariable("id") long id, @RequestBody SavingsAccount savings ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
 	NegativeAmountException
 	{
-//		AccountHolder account = MeritBank.getAccountHolder(id);
-//		
-//		if (account == null) {
-//			throw new NotFoundException("No account exists");
-//		}
 				
 		AccountHolder account = this.getAccountHolder(id);
 		
 		if (savings.getBalance() < 0) {
+			logger.warn("Negative amount exception");
 			throw new NegativeAmountException();
 		}
 		
@@ -105,29 +103,29 @@ public class MeritBankController {
 		return account.getSavingsAccounts();
 	}
 	
-	
+	@PostMapping(value="/AccountHolders/{id}/CDAccounts")
+	@ResponseStatus(HttpStatus.CREATED)
+	public CDAccount addCDAccount(@PathVariable("id") long id, @RequestBody CDAccount CDAccount ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
+	NegativeAmountException, ExceedsFraudSuspicionLimitException
+	{			
+		AccountHolder account = this.getAccountHolder(id);
+		
+		if (CDAccount.getBalance() < 0) {
+			logger.warn("Negative amount exception");
+			throw new NegativeAmountException();
+		}
 
-//	@PostMapping(value="/AccountHolders/{id}/CDAccounts")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public CDAccount addCDAccount(@PathVariable("id") long id, @RequestBody CDAccount CDAccount ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
-//	NegativeAmountException, ExceedsFraudSuspicionLimitException
-//	{
-////		AccountHolder account = MeritBank.getAccountHolder(id);
-////		
-////		if (account == null) {
-////			throw new NotFoundException("No account exists");
-////		}
-//				
-//		AccountHolder account = this.getAccountHolder(id);
-//		
-//		if (CDAccount.getBalance() < 0) {
-//			throw new NegativeAmountException();
-//		}
-//		
-//		account.addCDAccount(CDAccount);
-//		
-//		return CDAccount;
-//	}
+		account.addCDAccount(CDAccount);
+		
+		return CDAccount;
+	}
+	
+	@GetMapping(value="/AccountHolders/{id}/CDAccounts")
+	public CDAccount[] getCDAccounts(@PathVariable("id") long id) throws NotFoundException {
+		AccountHolder account = this.getAccountHolder(id);
+		
+		return account.getCDAccounts();
+	}
 	
 	@PostMapping("/CDOfferings")
 	public CDOffering createCDOffering(@RequestBody CDOffering offering) {
@@ -139,7 +137,6 @@ public class MeritBankController {
 	public CDOffering[] getCDOfferings() throws NotFoundException {
 		CDOffering[] cdOfferings = MeritBank.getCDOfferings();
 	    return cdOfferings;
-
 	}
 	
 }

@@ -75,39 +75,7 @@ public class AccountHolder implements Comparable{
 	    	this.CDAccounts = new CDAccount[numOfAccount];
 	    }
 	    
-	    
-	    public String getFirstName() {
-	        return firstName;
-	    }
-	    public void setFirstName(String firstName) {
-	        this.firstName = firstName;
-	    }
-	    public String getMiddleName() {
-	        return middleName;
-	    }
-	    public void setMiddleName(String middleName) {
-	        this.middleName = middleName;
-	    }
-	    public String getLastName() {
-	        return lastName;
-	    }
-	    public void setLastname(String lastName) {
-	        this.lastName = lastName;
-	    }
-	    public String getSSN() {
-	        return ssn;
-	    }
-	    public void setSSN(String ssn) {
-	        this.ssn = ssn;
-	    }
-	    
-	    public long getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
+	   
 	    
 	    public CheckingAccount addCheckingAccount(double openingBalance) throws ExceedsCombinedBalanceLimitException {
 	    	CheckingAccount acc = new CheckingAccount(openingBalance);
@@ -115,17 +83,15 @@ public class AccountHolder implements Comparable{
 	    	return this.addCheckingAccount(acc);
 	    }
 	            
-	          /*If combined balance limit is exceeded, throw ExceedsCombinedBalanceLimitException
-	           * also add a deposit transaction with the opening balance */
+      /*If combined balance limit is exceeded, throw ExceedsCombinedBalanceLimitException
+       * also add a deposit transaction with the opening balance */
 	    public CheckingAccount addCheckingAccount(CheckingAccount checkingAccount) throws ExceedsCombinedBalanceLimitException {
 	    	// check the opening account condition
 	    	if (canOpen(checkingAccount.getBalance())) {
-	    		// add this transaction inside that account
 		    	double amount = checkingAccount.getBalance();
 		    	
 		    	DepositTransaction tran = new DepositTransaction(checkingAccount, amount, new Date() );
 		    	
-		    	// add transaction
 		    	checkingAccount.addTransaction(tran);
 	    		
 		    	// increment numberOfCheckings currently have
@@ -344,5 +310,38 @@ public class AccountHolder implements Comparable{
 			}
 			
 			return cds;
+		}
+				 
+	    public String getFirstName() {
+	        return firstName;
+	    }
+	    public void setFirstName(String firstName) {
+	        this.firstName = firstName;
+	    }
+	    public String getMiddleName() {
+	        return middleName;
+	    }
+	    public void setMiddleName(String middleName) {
+	        this.middleName = middleName;
+	    }
+	    public String getLastName() {
+	        return lastName;
+	    }
+	    public void setLastname(String lastName) {
+	        this.lastName = lastName;
+	    }
+	    public String getSSN() {
+	        return ssn;
+	    }
+	    public void setSSN(String ssn) {
+	        this.ssn = ssn;
+	    }
+	    
+	    public long getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
 		}
 }

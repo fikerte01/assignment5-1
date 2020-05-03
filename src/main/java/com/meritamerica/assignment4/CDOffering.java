@@ -5,6 +5,10 @@ public class CDOffering {
 	private int term;
 	private double interestRate;
 	
+	public CDOffering() {
+		
+	}
+	
 	static CDOffering readFromString(String cdOfferingDataString) {
 		String[] data = cdOfferingDataString.split(",");
 		int term = Integer.parseInt(data[0]);
@@ -17,10 +21,6 @@ public class CDOffering {
 	public CDOffering(int term, double interestRate) {
 		this.term = term;
 		this.interestRate = interestRate;
-	}
-	
-	public CDOffering() {
-		
 	}
 	
 	public double getInterestRate() {

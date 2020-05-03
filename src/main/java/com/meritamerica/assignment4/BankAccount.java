@@ -18,10 +18,13 @@ public class BankAccount {
 	private double balance;
 	private double interestRate;
 	private Date openDate;
-	private ArrayList<Transaction> transactions;
+	private List<Transaction> transactions;
 	
+	// independent constructor
 	public BankAccount() {
-		
+		this.transactions = new ArrayList<>();
+		this.openDate = new Date();
+		this.accountNumber = MeritBank.getNextAccountNumber();
 	}
 	
 	BankAccount(double balance, double interestRate) {
@@ -48,7 +51,6 @@ public class BankAccount {
 		
 		// Create a date formatter
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		
 		int accNumb = Integer.parseInt(data[0]);
 		double balance = Double.parseDouble(data[1]);
 		double interestRate = Double.parseDouble(data[2]);
@@ -61,31 +63,9 @@ public class BankAccount {
 		DecimalFormat df = new DecimalFormat("#.####");
 		String data = this.getAccountNumber() + "," + df.format(this.getBalance()) + "," 
 				+ df.format(this.getInterestRate()) + "," + MeritBank.formatDate(this.getOpenedOn());
-//		String.format("%.####", this.getInterestRate())
-//		MeritBank.formatNumber(this.getInterestRate()) 
 		return data;
 	}
 	
-	public long getAccountNumber() {
-		return this.accountNumber;
-	}
-	
-	public double getBalance() {
-		return this.balance;
-	}
-	
-	public double getInterestRate() {
-		return this.interestRate;
-	}
-	
-	public Date getOpenedOn() {
-		return this.openDate;
-	}
-	
-	public void setBalance(double balance){
-		this.balance = balance;
-	}
-
 	public boolean withdraw(double amount) {
 		if (amount <= 0) {
 			System.out.println("The amount needs to be more than 0");
@@ -115,14 +95,53 @@ public class BankAccount {
 		return futureVal;
 	}
 	
-	public ArrayList<Transaction> getTransactions() {
+	public void addTransaction(Transaction tran){
+		System.out.println("Transaction thing");
+		System.out.println(tran);
+		transactions.add(tran);
+	}
+	
+	public List<Transaction> getTransactions() {
 		return this.transactions;
 	}
 	
-	public void addTransaction(Transaction tran){
-		transactions.add(tran);
-		
-		
+	
+
+	public long getAccountNumber() {
+		return this.accountNumber;
+	}
+	
+	public double getBalance() {
+		return this.balance;
+	}
+	
+	public double getInterestRate() {
+		return this.interestRate;
+	}
+	
+	public Date getOpenedOn() {
+		return this.openDate;
+	}
+	
+	public void setBalance(double balance){
+		this.balance = balance;
 	}
 
+	public Date getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(Date openDate) {
+		this.openDate = openDate;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
+	
+	
 }
