@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.hackerrank.sample.HttpJsonDynamicUnitTest" time="0.733000" tests="1" errors="0" skipped="0" failures="1">
-    <testcase name="All test cases" classname="com.hackerrank.sample.HttpJsonDynamicUnitTest" time="0.733000">
-        <failure>
-            Status code
-        </failure>
-    </testcase>
+<testsuite name="com.hackerrank.sample.HttpJsonDynamicUnitTest" time="0.920000" tests="1" errors="0" skipped="0" failures="0">
+    <testcase name="All test cases" classname="com.hackerrank.sample.HttpJsonDynamicUnitTest" time="0.920000"/>
 </testsuite>

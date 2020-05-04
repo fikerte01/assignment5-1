@@ -59,8 +59,6 @@ public class AccountHolder implements Comparable{
 	        this.middleName = middleName;
 	        this.lastName = lastName;
 	        this.ssn = ssn;
-	        
-	        
 	    }
 	    
 	    public void createCheckingArray(int numOfAccount) {
@@ -238,7 +236,7 @@ public class AccountHolder implements Comparable{
 	    
 	    // This method validates that the total amount of combined balance and deposit is less than $250,000.00
 	    private boolean canOpen(double deposit) throws ExceedsCombinedBalanceLimitException {
-	    	if (this.getCombinedBalance() + deposit < 250000.00) {
+	    	if (this.getCombinedBalance() < 250000.00) {
 	    		return true;
 	    	} else {
 	    		System.out.println("Total is over 250,000. Can not open a new account");

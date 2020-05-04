@@ -4,9 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
    // CDAccount(child class) inherit methods and variables from BankAccount(parent class)
 public class CDAccount extends BankAccount {
 	private CDOffering offering;
+	@NotNull
+	@Positive
+	private int terms;
 	
 	CDAccount(CDOffering offering, double openingBalance) {
 		super(openingBalance, offering.getInterestRate());
@@ -53,6 +59,7 @@ public class CDAccount extends BankAccount {
 	}
 	
 	public void setTerm(int years) {
+		this.terms = years;
 		offering.setTerm(years);
 	}
 	

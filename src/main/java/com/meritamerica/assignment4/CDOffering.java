@@ -1,8 +1,14 @@
 package com.meritamerica.assignment4;
 
-    // This CDoffering class gets the term and interest rate by two getter methods
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+// This CDoffering class gets the term and interest rate by two getter methods
 public class CDOffering {
+	@NotNull
+	@Positive
 	private int term;
+	@NotNull
 	private double interestRate;
 	
 	public CDOffering() {

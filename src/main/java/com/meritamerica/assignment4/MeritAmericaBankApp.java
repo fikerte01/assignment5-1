@@ -37,13 +37,16 @@ public class MeritAmericaBankApp {
 //				}
 //			}
 			
-//			AccountHolder accountHolder = new AccountHolder(
-//	            	"Sadiq",
-//	            	"",
-//	            	"Manji",
-//	            	"123456789");
-//			
-//			
+			AccountHolder accountHolder = new AccountHolder(
+	            	"Sadiq",
+	            	"",
+	            	"Manji",
+	            	"123456789");
+			CDAccount cda = new CDAccount();
+			cda.setBalance(50000);
+			cda.setInterestRate(3.0);
+			accountHolder.addCDAccount(cda);
+			System.out.println("Terms :" + cda.getTerm());
 //			/*
 //			 * Transaction process check
 //			 */

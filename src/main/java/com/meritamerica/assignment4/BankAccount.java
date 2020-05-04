@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = { "transactions" })
@@ -16,6 +18,7 @@ public class BankAccount {
 	// member variables of BankAccount class
 	protected long accountNumber;
 	private double balance;
+	@NotNull
 	private double interestRate;
 	private Date openDate;
 	private List<Transaction> transactions;

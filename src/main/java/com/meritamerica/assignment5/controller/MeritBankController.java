@@ -106,7 +106,7 @@ public class MeritBankController {
 	@PostMapping(value="/AccountHolders/{id}/CDAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CDAccount addCDAccount(@PathVariable("id") long id, @RequestBody CDAccount CDAccount ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
-	NegativeAmountException, ExceedsFraudSuspicionLimitException
+	NegativeAmountException, ExceedsFraudSuspicionLimitException, MissingFieldException
 	{			
 		AccountHolder account = this.getAccountHolder(id);
 		
@@ -114,6 +114,12 @@ public class MeritBankController {
 			logger.warn("Negative amount exception");
 			throw new NegativeAmountException();
 		}
+		
+		// need explaining on CDAccount.getInterestRate() >=1
+		if (CDAccount.getInterestRate() <= 0 || CDAccount.getTerm() <= 0 || CDAccount.getInterestRate() >= 1) {
+			logger.warn("Missing interest rate or term");
+			throw new MissingFieldException("Missing interest rate or term");
+		}			
 
 		account.addCDAccount(CDAccount);
 		
@@ -128,7 +134,15 @@ public class MeritBankController {
 	}
 	
 	@PostMapping("/CDOfferings")
-	public CDOffering createCDOffering(@RequestBody CDOffering offering) {
+	@ResponseStatus(HttpStatus.CREATED)
+	public CDOffering createCDOffering(@RequestBody CDOffering offering) throws MissingFieldException {
+		
+		// need more question on || offering.getInterestRate() >= 1)
+		if (offering.getInterestRate() <= 0 || offering.getTerm() <= 0 || offering.getInterestRate() >= 1) {
+			logger.warn("Missing interest rate or term");
+			throw new MissingFieldException("Missing interest rate or term");
+		}	
+		
 		MeritBank.addCDOffering(offering);
 		return offering;
 	}
