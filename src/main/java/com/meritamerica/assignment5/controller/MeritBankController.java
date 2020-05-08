@@ -56,15 +56,10 @@ public class MeritBankController {
 	
 	@PostMapping(value="/AccountHolders/{id}/CheckingAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CheckingAccount addChecking(@PathVariable("id") long id, @RequestBody CheckingAccount checking ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
+	public CheckingAccount addChecking(@PathVariable("id") long id, @RequestBody @Valid CheckingAccount checking ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
 	NegativeAmountException
 	{				
 		AccountHolder account = this.getAccountHolder(id);
-		
-		if (checking.getBalance() < 0) {
-			logger.warn("Negative amount exception");
-			throw new NegativeAmountException();
-		}
 		
 		account.addCheckingAccount(checking);
 		
@@ -80,16 +75,11 @@ public class MeritBankController {
 	
 	@PostMapping(value="/AccountHolders/{id}/SavingsAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SavingsAccount addSaving(@PathVariable("id") long id, @RequestBody SavingsAccount savings ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
+	public SavingsAccount addSaving(@PathVariable("id") long id, @RequestBody @Valid SavingsAccount savings ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
 	NegativeAmountException
 	{
 				
-		AccountHolder account = this.getAccountHolder(id);
-		
-		if (savings.getBalance() < 0) {
-			logger.warn("Negative amount exception");
-			throw new NegativeAmountException();
-		}
+		AccountHolder account = this.getAccountHolder(id);		
 		
 		account.addSavingsAccount(savings);
 		
@@ -105,21 +95,10 @@ public class MeritBankController {
 	
 	@PostMapping(value="/AccountHolders/{id}/CDAccounts")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CDAccount addCDAccount(@PathVariable("id") long id, @RequestBody CDAccount CDAccount ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
-	NegativeAmountException, ExceedsFraudSuspicionLimitException, MissingFieldException
+	public CDAccount addCDAccount(@PathVariable("id") long id, @RequestBody @Valid CDAccount CDAccount ) throws NotFoundException, ExceedsCombinedBalanceLimitException,
+	NegativeAmountException, ExceedsFraudSuspicionLimitException, FieldErrorException
 	{			
-		AccountHolder account = this.getAccountHolder(id);
-		
-		if (CDAccount.getBalance() < 0) {
-			logger.warn("Negative amount exception");
-			throw new NegativeAmountException();
-		}
-		
-		// need explaining on CDAccount.getInterestRate() >=1
-		if (CDAccount.getInterestRate() <= 0 || CDAccount.getTerm() <= 0 || CDAccount.getInterestRate() >= 1) {
-			logger.warn("Missing interest rate or term");
-			throw new MissingFieldException("Missing interest rate or term");
-		}			
+		AccountHolder account = this.getAccountHolder(id);				
 
 		account.addCDAccount(CDAccount);
 		
@@ -135,14 +114,7 @@ public class MeritBankController {
 	
 	@PostMapping("/CDOfferings")
 	@ResponseStatus(HttpStatus.CREATED)
-	public CDOffering createCDOffering(@RequestBody CDOffering offering) throws MissingFieldException {
-		
-		// need more question on || offering.getInterestRate() >= 1)
-		if (offering.getInterestRate() <= 0 || offering.getTerm() <= 0 || offering.getInterestRate() >= 1) {
-			logger.warn("Missing interest rate or term");
-			throw new MissingFieldException("Missing interest rate or term");
-		}	
-		
+	public CDOffering createCDOffering(@RequestBody @Valid CDOffering offering) throws FieldErrorException {				
 		MeritBank.addCDOffering(offering);
 		return offering;
 	}

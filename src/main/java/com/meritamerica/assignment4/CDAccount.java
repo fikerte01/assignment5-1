@@ -63,7 +63,9 @@ public class CDAccount extends BankAccount {
 		offering.setTerm(years);
 	}
 	
-	public void setInterestRate(double interestRate) {
+	@Override
+	public void setInterestRate(double interestRate) throws FieldErrorException {
+		super.setInterestRate(interestRate);
 		offering.setInterestRate(interestRate);
 	}
 	

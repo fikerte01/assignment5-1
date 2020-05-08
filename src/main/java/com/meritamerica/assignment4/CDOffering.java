@@ -1,5 +1,6 @@
 package com.meritamerica.assignment4;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -9,6 +10,7 @@ public class CDOffering {
 	@Positive
 	private int term;
 	@NotNull
+	@Positive
 	private double interestRate;
 	
 	public CDOffering() {
@@ -33,7 +35,10 @@ public class CDOffering {
 		return interestRate;
 	}
 	
-	public void setInterestRate(double interestRate) {
+	public void setInterestRate(double interestRate) throws FieldErrorException {
+		if (interestRate >= 1) {
+			throw new FieldErrorException("Invalid interest rate");
+		}
 		this.interestRate = interestRate;
 	}
 	

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -17,8 +18,10 @@ public class BankAccount {
 	
 	// member variables of BankAccount class
 	protected long accountNumber;
+	@Positive
 	private double balance;
 	@NotNull
+	@Positive
 	private double interestRate;
 	private Date openDate;
 	private List<Transaction> transactions;
@@ -142,7 +145,7 @@ public class BankAccount {
 		this.accountNumber = accountNumber;
 	}
 
-	public void setInterestRate(double interestRate) {
+	public void setInterestRate(double interestRate) throws FieldErrorException {
 		this.interestRate = interestRate;
 	}
 	
